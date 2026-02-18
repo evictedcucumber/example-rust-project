@@ -1,0 +1,21 @@
+[package]
+name = "CHANGE_ME_NAME"
+version = "1.0.0"
+description = "CHANGE_ME_DESCRIPTION"
+authors = ["evictedcucumber"]
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0.101"
+clap = { version = "4.5.59", features = ["derive"] }
+thiserror = "2.0.18"
+
+[lints.rust]
+warnings = "deny"
+unused = "deny"
+rust_2018_idioms = "deny"
+
+[lints.clippy]
+all = "deny"
+pedantic = "deny"
+nursery = "deny"
