@@ -1,0 +1,8 @@
+[test_config]
+name = "example-rust-project"
+branch-coverage = true
+color = "Always"
+
+[report]
+out = ["Html"]
+output-dir = "./coverage"

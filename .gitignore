@@ -1,0 +1,16 @@
+*
+
+!.envrc
+!.gitignore
+!Cargo.lock
+!Cargo.toml
+!LICENSE
+!README.md
+!deny.toml
+!flake.lock
+!flake.nix
+!rust-toolchain.toml
+!src/
+!src/*
+!src/**/*
+!tarpaulin.toml

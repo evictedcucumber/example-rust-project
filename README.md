@@ -1,3 +1,1 @@
-# CHANGE_ME_NAME
-
-CHANGE_ME_DESCRIPTION
+# Example Rust Project

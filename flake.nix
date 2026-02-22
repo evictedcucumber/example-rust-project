@@ -23,11 +23,14 @@
       };
     in {
       devShells.default = pkgs.mkShell {
-        name = "CHANGE_ME_NAME";
+        name = "example-rust-project";
         packages = with pkgs; [
-          (rust-bin.stable.latest.default.override {
-            extensions = ["rust-src"];
-          })
+          (rust-bin.fromRustupToolchainFile ./rust-toolchain.toml)
+          cargo-audit
+          cargo-tarpaulin
+          cargo-nextest
+          cargo-deny
+          bacon
         ];
       };
     });

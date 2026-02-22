@@ -1,9 +1,10 @@
 [package]
-name = "CHANGE_ME_NAME"
+name = "example-rust-project"
 version = "1.0.0"
-description = "CHANGE_ME_DESCRIPTION"
+description = ""
 authors = ["evictedcucumber"]
 edition = "2024"
+license = "MIT"
 
 [dependencies]
 anyhow = "1.0.101"
