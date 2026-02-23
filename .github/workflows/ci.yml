@@ -82,3 +82,34 @@ jobs:
 
       - name: Coverage
         run: cargo tarpaulin --fail-under 80
+
+  dependencies:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Cache
+        id: dependencies-cache
+        uses: actions/cache@v5
+        with:
+          path: |
+            ~/.rustup/toolchains/
+            ~/.cargo/registry/
+            ~/.cargo/bin/
+          key: dependencies-${{ hashFiles('**/Cargo.lock', '**/rust-toolchain.toml') }}
+
+      - name: Install Audit
+        if: steps.dependencies-cache.outputs.cache-hit != 'true'
+        run: cargo install cargo-audit --locked
+
+      - name: Install Deny
+        if: steps.dependencies-cache.outputs.cache-hit != 'true'
+        run: cargo install cargo-deny --locked
+
+      - name: Audit
+        run: cargo audit
+
+      - name: Deny
+        run: cargo deny check
