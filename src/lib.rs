@@ -2,7 +2,9 @@ use clap::Parser;
 
 #[derive(Parser, Debug)]
 #[command(version,about, long_about = None)]
-pub struct Cli {}
+pub struct Cli {
+    pub name: String,
+}
 
 #[cfg(test)]
 mod tests {
