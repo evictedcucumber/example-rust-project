@@ -27,6 +27,7 @@ jobs:
         with:
           path: |
             ~/.rustup/toolchains/
+            ~/.cargo/registry/
             target/
           key: build-${{ hashFiles('**/Cargo.lock', '**/rust-toolchain.toml') }}
 
@@ -41,16 +42,19 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Cache
+        id: test-cache
         uses: actions/cache@v5
         with:
           path: |
             ~/.rustup/toolchains/
+            ~/.cargo/registry/
             ~/.cargo/bin/
             target/
           key: test-${{ hashFiles('**/Cargo.lock', '**/rust-toolchain.toml') }}
 
       - name: Install Nextest
-        run: cargo install cargo-nextest --locked --force
+        if: steps.test-cache.outputs.cache-hit != 'true'
+        run: cargo install cargo-nextest --locked
 
       - name: Test
         run: cargo nextest run
@@ -63,15 +67,18 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Cache
+        id: coverage-cache
         uses: actions/cache@v5
         with:
           path: |
             ~/.rustup/toolchains/
+            ~/.cargo/registry/
             ~/.cargo/bin/
           key: coverage-${{ hashFiles('**/Cargo.lock', '**/rust-toolchain.toml') }}
 
       - name: Install Tarpaulin
-        run: cargo install cargo-tarpaulin --locked --force
+        if: steps.coverage-cache.outputs.cache-hit != 'true'
+        run: cargo install cargo-tarpaulin --locked
 
       - name: Coverage
         run: cargo tarpaulin --fail-under 80
