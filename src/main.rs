@@ -4,5 +4,7 @@ use example_rust_project::Cli;
 fn main() {
     let cli = Cli::parse();
 
+    println!("Hello World");
+
     dbg!(cli);
 }

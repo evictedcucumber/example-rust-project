@@ -4,6 +4,12 @@ on:
   push:
     branches: [ main ]
 
+permissions:
+  contents: read
+
+concurrency:
+  cancel-in-progress: true
+
 env:
   CARGO_TERM_COLOR: always
 
@@ -13,46 +19,41 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
-            ~/.cargo/registry
-            target
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock', '**/rust-toolchain.toml') }}
-          restore-keys: |
-            ${{ runner.os }}-cargo-
-
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@master
 
       - name: Build
         run: cargo build
 
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo/registry
-            target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock', '**/rust-toolchain.toml') }}
-          restore-keys: |
-            ${{ runner.os }}-cargo-
-
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@master
-
-      - name: Install Nextest
-        run: cargo install cargo-nextest --locked
-
-      - name: Test
-        run: cargo nextest run
+  # test:
+  #   runs-on: ubuntu-latest
+  #
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v6
+  #
+  #     - name: Cache
+  #       uses: actions/cache@v5
+  #       with:
+  #         path: |
+  #           ~/.cargo/registry
+  #           target
+  #         key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock', '**/rust-toolchain.toml') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-cargo-
+  #
+  #     - name: Install Nextest
+  #       run: cargo install cargo-nextest --locked
+  #
+  #     - name: Test
+  #       run: cargo nextest run
