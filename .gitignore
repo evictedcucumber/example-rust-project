@@ -1,6 +1,9 @@
 *
 
 !.envrc
+!.github/
+!.github/*
+!.github/**/*
 !.gitignore
 !Cargo.lock
 !Cargo.toml
