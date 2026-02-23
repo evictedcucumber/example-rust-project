@@ -73,5 +73,5 @@ jobs:
       - name: Install Tarpaulin
         run: cargo install cargo-tarpaulin --locked
 
-      - name: Test
+      - name: Coverage
         run: cargo tarpaulin run --fail-under 80
