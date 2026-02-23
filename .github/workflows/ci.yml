@@ -50,7 +50,7 @@ jobs:
           key: test-${{ hashFiles('**/Cargo.lock', '**/rust-toolchain.toml') }}
 
       - name: Install Nextest
-        run: cargo install cargo-nextest --locked
+        run: cargo install cargo-nextest --locked --force
 
       - name: Test
         run: cargo nextest run
@@ -71,7 +71,7 @@ jobs:
           key: coverage-${{ hashFiles('**/Cargo.lock', '**/rust-toolchain.toml') }}
 
       - name: Install Tarpaulin
-        run: cargo install cargo-tarpaulin --locked
+        run: cargo install cargo-tarpaulin --locked --force
 
       - name: Coverage
         run: cargo tarpaulin --fail-under 80
