@@ -1,8 +1,10 @@
 name: Build & Test
 
 on:
+  pull_request:
+    branches: [ $default-branch ]
   push:
-    branches: [ main ]
+    branches: [ "*-with-ci" ]
 
 permissions:
   contents: read
