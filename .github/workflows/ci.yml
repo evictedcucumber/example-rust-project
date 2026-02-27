@@ -104,12 +104,12 @@ jobs:
         if: steps.dependencies-cache.outputs.cache-hit != 'true'
         run: cargo install cargo-audit --locked
 
+      - name: Audit
+        run: cargo audit
+
       - name: Install Deny
         if: steps.dependencies-cache.outputs.cache-hit != 'true'
         run: cargo install cargo-deny --locked
-
-      - name: Audit
-        run: cargo audit
 
       - name: Deny
         run: cargo deny check
